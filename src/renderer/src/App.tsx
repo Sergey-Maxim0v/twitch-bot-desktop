@@ -1,9 +1,24 @@
-function App(): JSX.Element {
-  // TODO: errors
-  // const chatMessages = useTwitchChat()
-  // console.log(chatMessages)
+import { useEffect } from 'react'
+import { tmiSay } from '../../tmi/tmiSay'
 
-  return <>TODO: App</>
+function App(): JSX.Element {
+  const messages = []
+
+  console.log(messages)
+
+  useEffect(() => {
+    setTimeout(() => {
+      tmiSay({ message: 'test message from react' })
+    }, 1000)
+  }, [])
+
+  return (
+    <div>
+      <p>TODO: app</p>
+      <br />
+      <p>{messages.join('\n')}</p>
+    </div>
+  )
 }
 
 export default App

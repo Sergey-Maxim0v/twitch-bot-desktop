@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: twitch-bot
+productName: tmi-bot
 directories:
   buildResources: build
 files:
@@ -12,7 +12,7 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: twitch-bot
+  executableName: tmi-bot
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}

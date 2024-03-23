@@ -1,7 +1,7 @@
 import { app, BrowserWindow, ipcMain } from 'electron'
 import { electronApp, optimizer } from '@electron-toolkit/utils'
 import { createWindow } from './createWindow'
-import client from '../twitch/TMIClient'
+import tmiClient from '../tmi/tmiClient'
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -39,4 +39,4 @@ app.on('window-all-closed', () => {
 })
 
 // TODO: Twitch
-client.connect().catch((error) => console.warn('Error twitch connect::: ', error))
+tmiClient.connect().catch((error) => console.warn('Error tmi connect::: ', error))
