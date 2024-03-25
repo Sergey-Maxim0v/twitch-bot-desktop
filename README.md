@@ -1,4 +1,4 @@
-# Twitch-bot
+# Twitch-bot desktop version
 
 ## Project Setup
 
