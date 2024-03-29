@@ -1,0 +1,23 @@
+.row {
+  width: 40px;
+  position: relative;
+}
+
+.loader {
+  width: 100%;
+  padding: 16%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: $c-twitch-violet;
+  mask:
+    conic-gradient(#0000 10%, #000),
+    linear-gradient(#000, #000) content-box;
+  mask-composite: subtract;
+  animation: loader-animation 1s infinite linear;
+}
+
+@keyframes loader-animation {
+  to {
+    transform: rotate(1turn);
+  }
+}
