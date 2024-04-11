@@ -2,9 +2,15 @@ import { useEffect } from 'react'
 import { TwitchMessageCodes } from '../constants/twitchMessageCodes'
 import { twitchPingPong } from '../api/twitchPingPong'
 
-export const useTwitchPingPong = ({ socket, isAuth }: { socket: WebSocket; isAuth: boolean }) => {
+export const useTwitchPingPong = ({
+  socket,
+  isAuth
+}: {
+  socket: WebSocket | null
+  isAuth: boolean
+}) => {
   useEffect(() => {
-    if (!isAuth) {
+    if (!isAuth || !socket) {
       return
     }
 

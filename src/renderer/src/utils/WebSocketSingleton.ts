@@ -1,5 +1,5 @@
 export class WebSocketSingleton {
-  private static instance: WebSocket = null
+  private static instance: WebSocket
 
   private static createInstance(url) {
     return new WebSocket(url)

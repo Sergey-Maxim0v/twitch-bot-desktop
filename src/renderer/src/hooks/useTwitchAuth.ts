@@ -12,7 +12,7 @@ export const useTwitchAuth = ({ authData }: { authData: ITwitchAuth }) => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    if (!isOpen || !authData.username || !authData.token) {
+    if (!isOpen || !authData.username || !authData.token || !socket) {
       return
     }
 
