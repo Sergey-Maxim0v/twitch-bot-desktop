@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { ITwitchAuth } from './types/ITwitchAuth'
 import { twitchOptions } from './api/twitchOptions'
 
-function App(): JSX.Element {
+function App() {
   const [authData, setAuthData] = useState<ITwitchAuth>({
     username: twitchOptions.identity.username,
     token: twitchOptions.identity.token + 1
