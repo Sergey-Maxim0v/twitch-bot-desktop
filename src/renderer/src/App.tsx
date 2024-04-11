@@ -7,20 +7,23 @@ import { twitchOptions } from './api/twitchOptions'
 function App() {
   const [authData, setAuthData] = useState<ITwitchAuth>({
     username: twitchOptions.identity.username,
-    token: twitchOptions.identity.token + 1
+    token: twitchOptions.identity.token
   })
+
   const { isAuth, isLoading } = useTwitch(authData)
 
-  if (!isAuth) {
-    return <Auth isLoading={isLoading} authData={authData} setAuthData={setAuthData} />
-  }
+  // TODO: router (страница авторизации и под каждый чат)
 
-  return (
-    <div>
-      <p>TODO: app</p>
-      <br />
-    </div>
-  )
+  // if (!isAuth) {
+  return <Auth isLoading={isLoading} authData={authData} setAuthData={setAuthData} />
+  // }
+
+  // return (
+  //   <div>
+  //     <p>TODO: app</p>
+  //     <br />
+  //   </div>
+  // )
 }
 
 export default App
