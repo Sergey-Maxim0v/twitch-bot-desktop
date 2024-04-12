@@ -1,9 +1,7 @@
-import { Dispatch, SetStateAction } from 'react'
 import { ITwitchAuth } from '../../types/ITwitchAuth'
 
 export interface IAuthForm {
-  authData: ITwitchAuth
-  setAuthData: Dispatch<SetStateAction<ITwitchAuth>>
+  onSubmit: (val: ITwitchAuth) => void
   disabled: boolean
   isError?: boolean
 }

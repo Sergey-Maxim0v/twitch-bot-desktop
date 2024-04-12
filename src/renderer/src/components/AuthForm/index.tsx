@@ -4,16 +4,16 @@ import styles from './styles.module.scss'
 import { Button, FormControl, FormHelperText, TextField } from '@mui/material'
 import Loader from '../Loader'
 
-const AuthForm: FC<IAuthForm> = ({ authData, setAuthData, disabled, isError }) => {
-  const [name, setName] = useState(authData.username)
-  const [token, setToken] = useState(authData.token)
+const AuthForm: FC<IAuthForm> = ({ onSubmit, disabled, isError }) => {
+  const [name, setName] = useState('grey-bot')
+  const [token, setToken] = useState('4d5izmqecqs87oam9kxl8jvw0pecvj')
 
   return (
     <form
       className={styles.form}
       onSubmit={(event) => {
         event.preventDefault()
-        setAuthData({ username: name, token: token })
+        onSubmit({ username: name, token: token })
       }}
     >
       <FormControl sx={{ mb: 3 }}>
@@ -24,7 +24,7 @@ const AuthForm: FC<IAuthForm> = ({ authData, setAuthData, disabled, isError }) =
           required
           id="auth-form-username"
           label="User name"
-          defaultValue={authData.username}
+          defaultValue={name}
           aria-describedby="auth-form-username-helper-text"
           onChange={(event) => setName(event.target.value)}
         />
@@ -46,7 +46,7 @@ const AuthForm: FC<IAuthForm> = ({ authData, setAuthData, disabled, isError }) =
           type="password"
           autoComplete="current-password"
           aria-describedby="auth-form-token-helper-text"
-          defaultValue={authData.token}
+          defaultValue={token}
           onChange={(event) => setToken(event.target.value)}
         />
 

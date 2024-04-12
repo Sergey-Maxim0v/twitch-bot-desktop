@@ -7,8 +7,10 @@ import { twitchAuth } from '../api/twitchAuth'
 
 export const useTwitchAuth = ({ authData }: { authData: ITwitchAuth }) => {
   const { socket, isOpen } = useWebSocket(TWITCH_URL)
+
   const [isAuth, setIsAuth] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isError, setIsError] = useState(false)
 
   useEffect(() => {
     if (!isOpen || !authData.username || !authData.token || !socket) {
@@ -22,9 +24,18 @@ export const useTwitchAuth = ({ authData }: { authData: ITwitchAuth }) => {
     })
 
     const onMessage = (event: MessageEvent) => {
+      console.log(event.data)
       if (String(event.data).includes(TwitchMessageCodes.authSuccess)) {
         setIsAuth(true)
         setIsLoading(false)
+
+        socket.removeEventListener('message', onMessage)
+      }
+
+      if (String(event.data).includes(TwitchMessageCodes.authFailed)) {
+        setIsAuth(false)
+        setIsLoading(false)
+        setIsError(true)
 
         socket.removeEventListener('message', onMessage)
       }
@@ -35,5 +46,5 @@ export const useTwitchAuth = ({ authData }: { authData: ITwitchAuth }) => {
     return () => socket.removeEventListener('message', onMessage)
   }, [isOpen, authData])
 
-  return { isAuth, isLoading }
+  return { isAuth, isLoading, socket, isError }
 }

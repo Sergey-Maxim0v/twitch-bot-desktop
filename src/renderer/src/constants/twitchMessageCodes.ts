@@ -1,5 +1,6 @@
 export const TwitchMessageCodes = {
   authSuccess: 'GLHF',
+  authFailed: 'NOTICE',
   authLogin: 'NICK',
   authPass: 'PASS',
   channelJoin: 'JOIN',
