@@ -3,6 +3,7 @@ import Auth from './components/Auth'
 import { useState } from 'react'
 import { ITwitchAuth } from './types/ITwitchAuth'
 import { twitchOptions } from './api/twitchOptions'
+import SystemThemeProvider from './components/SystemThemeProvider'
 
 function App() {
   const [authData, setAuthData] = useState<ITwitchAuth>({
@@ -15,7 +16,11 @@ function App() {
   // TODO: router (страница авторизации и под каждый чат)
 
   // if (!isAuth) {
-  return <Auth isLoading={isLoading} authData={authData} setAuthData={setAuthData} />
+  return (
+    <SystemThemeProvider>
+      <Auth isLoading={isLoading} authData={authData} setAuthData={setAuthData} />
+    </SystemThemeProvider>
+  )
   // }
 
   // return (
