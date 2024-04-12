@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { ITwitchAuth } from '../types/ITwitchAuth'
 import { useWebSocket } from './useWebSocket'
 import { TWITCH_URL } from '../constants/twitchURL'
-import { twitchOptions } from '../api/twitchOptions'
 import { TwitchMessageCodes } from '../constants/twitchMessageCodes'
 import { twitchAuth } from '../api/twitchAuth'
 
@@ -18,8 +17,8 @@ export const useTwitchAuth = ({ authData }: { authData: ITwitchAuth }) => {
 
     twitchAuth({
       socket,
-      token: twitchOptions.identity.token,
-      username: twitchOptions.identity.username
+      token: authData.token,
+      username: authData.username
     })
 
     const onMessage = (event: MessageEvent) => {

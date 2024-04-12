@@ -2,27 +2,43 @@ import { FC, useState } from 'react'
 import { IAuthForm } from './types'
 import styles from './styles.module.scss'
 import { Button, FormControl, FormHelperText, TextField } from '@mui/material'
+import Loader from '../Loader'
 
-const AuthForm: FC<IAuthForm> = ({ authData, setAuthData }) => {
+const AuthForm: FC<IAuthForm> = ({ authData, setAuthData, disabled, isError }) => {
   const [name, setName] = useState(authData.username)
   const [token, setToken] = useState(authData.token)
 
-  // TODO: темная тема, стили формы, логика формы
-
   return (
-    <div className={styles.form}>
-      <TextField
-        size="small"
-        required
-        id="auth-form-username"
-        label="User name"
-        defaultValue={authData.username}
-        aria-describedby="auth-form-username-helper-text"
-        onChange={(event) => setName(event.target.value)}
-      />
-
-      <FormControl>
+    <form
+      className={styles.form}
+      onSubmit={(event) => {
+        event.preventDefault()
+        setAuthData({ username: name, token: token })
+      }}
+    >
+      <FormControl sx={{ mb: 3 }}>
         <TextField
+          error={isError}
+          disabled={disabled}
+          size="small"
+          required
+          id="auth-form-username"
+          label="User name"
+          defaultValue={authData.username}
+          aria-describedby="auth-form-username-helper-text"
+          onChange={(event) => setName(event.target.value)}
+        />
+        <FormHelperText id="auth-form-username-helper-text">
+          <a href="https://dev.twitch.tv/console" target="_blank" className="" rel="noreferrer">
+            dev.twitch.tv
+          </a>
+        </FormHelperText>
+      </FormControl>
+
+      <FormControl sx={{ mb: 3 }}>
+        <TextField
+          error={isError}
+          disabled={disabled}
           size="small"
           required
           id="auth-form-token"
@@ -35,29 +51,27 @@ const AuthForm: FC<IAuthForm> = ({ authData, setAuthData }) => {
         />
 
         <FormHelperText id="auth-form-token-helper-text">
-          <span>See </span>
           <a
             href="https://dev.twitch.tv/docs/irc/authenticate-bot/"
             target="_blank"
             className=""
             rel="noreferrer"
           >
-            dev.twitch.tv
+            dev.twitch.tv/docs/irc/authenticate-bot
           </a>
         </FormHelperText>
       </FormControl>
 
       <Button
+        disabled={disabled}
         variant="outlined"
         size="small"
-        onSubmit={(event) => {
-          event.preventDefault()
-          setAuthData({ username: name, token: token })
-        }}
+        className={styles.button}
+        type="submit"
       >
-        Authorize
+        {disabled ? <Loader className={styles.loader} /> : 'Authorize'}
       </Button>
-    </div>
+    </form>
   )
 }
 

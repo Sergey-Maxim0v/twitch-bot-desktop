@@ -1,3 +1,16 @@
 .form {
-  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  width: 330px;
+}
+
+.button {
+  overflow: hidden;
+  height: 32px;
+}
+
+.loader {
+  max-width: 1rem;
+  max-height: 1rem;
 }

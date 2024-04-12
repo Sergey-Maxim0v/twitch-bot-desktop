@@ -1,4 +1,3 @@
-import Loader from '../Loader'
 import styles from './styles.module.scss'
 import { FC } from 'react'
 import { IAuth } from './types'
@@ -9,9 +8,7 @@ const Auth: FC<IAuth> = ({ isLoading, authData, setAuthData }) => {
 
   return (
     <div className={styles.auth}>
-      {isLoading && <Loader className={styles.loader} />}
-
-      <AuthForm authData={authData} setAuthData={setAuthData} />
+      <AuthForm authData={authData} setAuthData={setAuthData} disabled={isLoading} />
     </div>
   )
 }
