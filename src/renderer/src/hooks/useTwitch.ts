@@ -37,7 +37,7 @@ export const useTwitch = () => {
   // TODO: console.log
   useEffect(() => {
     if (socket) {
-      socket.onmessage = (event) => console.log(event.data)
+      socket.onmessage = (event) => console.log(event.data) // eslint-disable-line no-restricted-syntax
     }
   }, [socket])
 

@@ -19,7 +19,7 @@ if (process.contextIsolated) {
     contextBridge.exposeInMainWorld('electron', electronAPI)
     contextBridge.exposeInMainWorld('api', api)
   } catch (error) {
-    console.error(error)
+    console.error('Preload::: ', error)
   }
 } else {
   window.electron = electronAPI

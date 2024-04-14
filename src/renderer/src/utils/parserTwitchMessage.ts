@@ -3,6 +3,6 @@ export const parserTwitchMessage = (message: string) => {
   const filtered = parts.filter((el) => !!el.trim())
 
   // TODO: parser
-  console.log(filtered)
+  console.log(filtered) // eslint-disable-line no-restricted-syntax
   return {}
 }

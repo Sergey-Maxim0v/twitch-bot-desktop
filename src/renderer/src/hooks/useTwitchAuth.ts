@@ -24,7 +24,8 @@ export const useTwitchAuth = ({ authData }: { authData: ITwitchAuth }) => {
     })
 
     const onMessage = (event: MessageEvent) => {
-      console.log(event.data)
+      // TODO: console.log
+      console.log(event.data) // eslint-disable-line no-restricted-syntax
       if (String(event.data).includes(TwitchMessageCodes.authSuccess)) {
         setIsAuth(true)
         setIsLoading(false)
