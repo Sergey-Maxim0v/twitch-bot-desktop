@@ -8,6 +8,7 @@ export const useTwitch = () => {
   const { socket } = useWebSocket(TWITCH_URL)
 
   const [isAuth, setIsAuth] = useState(true)
+  const [isError, setIsError] = useState(false)
 
   useTwitchPingPong({ socket, isAuth })
 
@@ -16,15 +17,21 @@ export const useTwitch = () => {
       return
     }
 
-    const listener = (event: MessageEvent) => {
+    const authListener = (event: MessageEvent) => {
       if (event && event.data?.includes(TwitchMessageCodes.authFailed)) {
         setIsAuth(false)
       }
     }
 
-    socket.addEventListener('message', (e) => listener(e))
+    const errorListener = () => setIsError(true)
 
-    return () => socket.removeEventListener('message', listener)
+    socket.addEventListener('message', authListener)
+    socket.addEventListener('error', errorListener)
+
+    return () => {
+      socket.removeEventListener('message', authListener)
+      socket.removeEventListener('error', errorListener)
+    }
   }, [socket])
 
   // TODO: console.log
@@ -34,5 +41,5 @@ export const useTwitch = () => {
     }
   }, [socket])
 
-  return { socket, isAuth }
+  return { socket, isAuth, isError }
 }
