@@ -21,7 +21,6 @@ const AuthForm: FC<IAuthForm> = ({ onSubmit, disabled, isError }) => {
           error={isError}
           disabled={disabled}
           size="small"
-          required
           id="auth-form-username"
           label="User name"
           defaultValue={name}

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { ITwitchAuth } from '../types/ITwitchAuth'
 import { useWebSocket } from './useWebSocket'
-import { TWITCH_URL } from '../constants/twitchURL'
-import { TwitchMessageCodes } from '../constants/twitchMessageCodes'
+import { TWITCH_URL } from '../api/constants/twitchURL'
+import { TwitchMessageCodes } from '../api/constants/twitchMessageCodes'
 import { twitchAuth } from '../api/twitchAuth'
 
 export const useTwitchAuth = ({ authData }: { authData: ITwitchAuth }) => {

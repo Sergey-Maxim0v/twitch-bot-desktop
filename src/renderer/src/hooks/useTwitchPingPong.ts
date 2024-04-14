@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { TwitchMessageCodes } from '../constants/twitchMessageCodes'
+import { TwitchMessageCodes } from '../api/constants/twitchMessageCodes'
 import { twitchPingPong } from '../api/twitchPingPong'
 
 export const useTwitchPingPong = ({

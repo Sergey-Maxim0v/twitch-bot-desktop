@@ -1,4 +1,4 @@
-import { TwitchMessageCodes } from '../constants/twitchMessageCodes'
+import { TwitchMessageCodes } from './constants/twitchMessageCodes'
 
 export const twitchAuth = ({
   socket,
