@@ -3,10 +3,11 @@ import { IAuthForm } from './types'
 import styles from './styles.module.scss'
 import { Button, FormControl, FormHelperText, TextField } from '@mui/material'
 import Loader from '../Loader'
+import { ITwitchAuth } from '../../types/ITwitchAuth'
 
-const AuthForm: FC<IAuthForm> = ({ onSubmit, disabled, isError }) => {
-  const [name, setName] = useState('grey-bot')
-  const [token, setToken] = useState('4d5izmqecqs87oam9kxl8jvw0pecvj')
+const AuthForm: FC<IAuthForm> = ({ onSubmit, disabled, isError, defaultValue }) => {
+  const [name, setName] = useState<ITwitchAuth['username']>(defaultValue?.username ?? '')
+  const [token, setToken] = useState<ITwitchAuth['token']>(defaultValue?.token ?? '')
 
   return (
     <form
@@ -20,6 +21,7 @@ const AuthForm: FC<IAuthForm> = ({ onSubmit, disabled, isError }) => {
         <TextField
           error={isError}
           disabled={disabled}
+          required
           size="small"
           id="auth-form-username"
           label="User name"

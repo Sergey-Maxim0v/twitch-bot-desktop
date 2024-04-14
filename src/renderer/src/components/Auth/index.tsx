@@ -25,11 +25,22 @@ const Auth: FC<IAuth> = ({ setSocket }) => {
   }
 
   // TODO: логика авторизации с автоматическим получением токена,
-  //  логика сохранения данных для авторизации в файл
+  // TODO: логика сохранения данных для авторизации в файл
+
+  // TODO: remove default value
+  const defaultValue: ITwitchAuth = {
+    username: 'grey-bot',
+    token: '4d5izmqecqs87oam9kxl8jvw0pecvj'
+  }
 
   return (
     <div className={styles.auth}>
-      <AuthForm isError={isError} disabled={isLoading} onSubmit={onSubmit} />
+      <AuthForm
+        isError={isError}
+        disabled={isLoading}
+        onSubmit={onSubmit}
+        defaultValue={defaultValue}
+      />
     </div>
   )
 }

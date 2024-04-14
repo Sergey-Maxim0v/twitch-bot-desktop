@@ -7,6 +7,8 @@ export const useWebSocket = (url: string) => {
   const [isError, setIsError] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
+  // TODO: закрытие и удаление сокета при разлогине для последующего создания нового
+
   useEffect(() => {
     setIsLoading(true)
 
@@ -28,8 +30,6 @@ export const useWebSocket = (url: string) => {
       setIsError(true)
       setIsLoading(false)
     }
-
-    return () => websocketInstance.close()
   }, [url])
 
   return { socket, isOpen, isError, isLoading }
