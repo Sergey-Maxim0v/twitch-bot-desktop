@@ -1,8 +1,6 @@
-import { ITwitchAuth } from '../../types/ITwitchAuth'
-
 export interface IAuthForm {
-  onSubmit: (val: ITwitchAuth) => void
-  defaultValue?: ITwitchAuth
+  onSubmit: (val: string) => void
+  defaultValue?: string
   disabled?: boolean
   isError?: boolean
 }

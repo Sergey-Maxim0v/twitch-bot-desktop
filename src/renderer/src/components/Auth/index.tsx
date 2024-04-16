@@ -1,46 +1,41 @@
 import styles from './styles.module.scss'
-import { FC, useEffect, useState } from 'react'
-import { IAuth } from './types'
+import { FC, useCallback, useState } from 'react'
 import AuthForm from '../AuthForm'
-import { ITwitchAuth } from '../../types/ITwitchAuth'
-import { useTwitchAuth } from '../../hooks/useTwitchAuth'
+import { twitchAuth } from '../../api/twitchAuth'
+import { IAuth } from './types'
 
-const Auth: FC<IAuth> = ({ setSocket }) => {
-  const [authData, setAuthData] = useState<ITwitchAuth>({
-    username: '',
-    token: ''
-  })
+const Auth: FC<IAuth> = ({ setIsAuth }) => {
+  const [isError, setIsError] = useState(false)
+  const [disabled, setDisabled] = useState(false)
 
-  const { isLoading, socket, isAuth, isError } = useTwitchAuth({ authData })
-
-  useEffect(() => {
-    if (!!socket && isAuth) {
-      setSocket(socket)
-    }
-  }, [socket, isAuth])
-
-  const onSubmit = (data: ITwitchAuth) => {
-    // TODO: авторизация по клику
-    setAuthData(data)
-  }
-
-  // TODO: логика авторизации с автоматическим получением токена,
   // TODO: логика сохранения данных для авторизации в файл
 
-  // TODO: remove default value
-  const defaultValue: ITwitchAuth = {
-    username: 'grey-bot',
-    token: '4d5izmqecqs87oam9kxl8jvw0pecvj'
-  }
+  const onSubmit = useCallback((id: string) => {
+    setDisabled(true)
+
+    // TODO: https://dev.twitch.tv/docs/authentication/getting-tokens-oauth/#device-code-grant-flow:~:text=complete%20the%20authorization.-,Obtaining,-the%20refresh%20token
+    twitchAuth(id)
+      .then((res) => {
+        // TODO
+        console.log('res', res) // eslint-disable-line
+        if (!res.ok) {
+          setIsError(true)
+        }
+        return res.json()
+      })
+      .then((data) => {
+        console.log('data', data) // eslint-disable-line
+        setDisabled(false)
+      })
+      .catch((e) => {
+        setIsAuth(false)
+        console.error('Error twitchAuth', e)
+      })
+  }, [])
 
   return (
     <div className={styles.auth}>
-      <AuthForm
-        isError={isError}
-        disabled={isLoading}
-        onSubmit={onSubmit}
-        defaultValue={defaultValue}
-      />
+      <AuthForm isError={isError} disabled={disabled} onSubmit={onSubmit} />
     </div>
   )
 }

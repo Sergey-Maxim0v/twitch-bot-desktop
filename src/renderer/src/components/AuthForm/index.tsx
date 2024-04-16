@@ -3,62 +3,42 @@ import { IAuthForm } from './types'
 import styles from './styles.module.scss'
 import { Button, FormControl, FormHelperText, TextField } from '@mui/material'
 import Loader from '../Loader'
-import { ITwitchAuth } from '../../types/ITwitchAuth'
 
 const AuthForm: FC<IAuthForm> = ({ onSubmit, disabled, isError, defaultValue }) => {
-  const [name, setName] = useState<ITwitchAuth['username']>(defaultValue?.username ?? '')
-  const [token, setToken] = useState<ITwitchAuth['token']>(defaultValue?.token ?? '')
+  const [id, setId] = useState<string>(defaultValue ?? '')
 
   return (
     <form
       className={styles.form}
       onSubmit={(event) => {
         event.preventDefault()
-        onSubmit({ username: name, token: token })
+        onSubmit(id)
       }}
     >
       <FormControl sx={{ mb: 3 }}>
         <TextField
           error={isError}
           disabled={disabled}
-          required
-          size="small"
-          id="auth-form-username"
-          label="User name"
-          defaultValue={name}
-          aria-describedby="auth-form-username-helper-text"
-          onChange={(event) => setName(event.target.value)}
-        />
-        <FormHelperText id="auth-form-username-helper-text">
-          <a href="https://dev.twitch.tv/console" target="_blank" className="" rel="noreferrer">
-            dev.twitch.tv
-          </a>
-        </FormHelperText>
-      </FormControl>
-
-      <FormControl sx={{ mb: 3 }}>
-        <TextField
-          error={isError}
-          disabled={disabled}
           size="small"
           required
-          id="auth-form-token"
-          label="Token"
+          id="auth-form-input"
+          label="Идентификатор клиента"
           type="password"
-          autoComplete="current-password"
-          aria-describedby="auth-form-token-helper-text"
-          defaultValue={token}
-          onChange={(event) => setToken(event.target.value)}
+          autoComplete="off"
+          aria-describedby="auth-form-input-helper-text"
+          defaultValue={defaultValue}
+          onChange={(event) => setId(event.target.value)}
         />
 
-        <FormHelperText id="auth-form-token-helper-text">
+        <FormHelperText id="auth-form-input-helper-text">
+          <span>See: </span>
           <a
-            href="https://dev.twitch.tv/docs/irc/authenticate-bot/"
+            href="https://dev.twitch.tv/console"
             target="_blank"
-            className=""
             rel="noreferrer"
+            className={styles.link}
           >
-            dev.twitch.tv/docs/irc/authenticate-bot
+            Twitch dev console
           </a>
         </FormHelperText>
       </FormControl>
@@ -70,7 +50,7 @@ const AuthForm: FC<IAuthForm> = ({ onSubmit, disabled, isError, defaultValue }) 
         className={styles.button}
         type="submit"
       >
-        {disabled ? <Loader className={styles.loader} /> : 'Authorize'}
+        {disabled ? <Loader className={styles.loader} /> : 'Login'}
       </Button>
     </form>
   )

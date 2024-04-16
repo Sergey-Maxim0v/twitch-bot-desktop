@@ -1,14 +1,20 @@
-import { TwitchMessageCodes } from './constants/twitchMessageCodes'
+import { TWITCH_AUTH_URL } from './constants/twitchAuthURL'
+import { twitchAuthScopes } from './constants/twitchAuthScopes'
 
-export const twitchAuth = ({
-  socket,
-  token,
-  username
-}: {
-  socket: WebSocket
-  token: string
-  username: string
-}) => {
-  socket.send(`${TwitchMessageCodes.authPass} oauth:${token}`)
-  socket.send(`${TwitchMessageCodes.authLogin} ${username}`)
+/**
+ * @see https://dev.twitch.tv/docs/authentication/getting-tokens-oauth/#device-code-grant-flow
+ */
+export const twitchAuth = async (clientId) => {
+  const params = new URLSearchParams({
+    client_id: clientId,
+    scopes: twitchAuthScopes
+  })
+
+  return await fetch(TWITCH_AUTH_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: params
+  })
 }
